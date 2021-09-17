@@ -15,7 +15,7 @@ class Main {
         int testCase = toInt(br.readLine());
 
         for (int i = 0; i < testCase ; i++) {
-            int applicant = toInt(br.readLine())ª;
+            int applicant = toInt(br.readLine());
 
             List<Applicant> applicants = new ArrayList<>();
             for (int j = 0; j < applicant; j++) {
