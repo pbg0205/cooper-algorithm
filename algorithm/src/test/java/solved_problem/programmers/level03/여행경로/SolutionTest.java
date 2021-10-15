@@ -1,4 +1,4 @@
-package solved_problem.programmers.travel_route;
+package solved_problem.programmers.level03.여행경로;
 
 
 import org.junit.jupiter.api.Test;
