@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="solved_problem.leetcode.house_robber.SolutionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-01-01T16:34:02" hostname="cooperui-MacBookPro.local" time="0.05">
-  <properties/>
-  <testcase name="robTest1()" classname="solved_problem.leetcode.house_robber.SolutionTest" time="0.05"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
