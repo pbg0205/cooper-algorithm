@@ -17,11 +17,8 @@ public class Main {
         }
 
         for (Integer input : inputs) {
-            if (isSelfReplicationNumber(input)) {
-                System.out.println("YES");
-            } else {
-                System.out.println("NO");
-            }
+            String answer = getSelfReplicationNumberAnswer(input);
+            System.out.println(answer);
         }
 
     }
@@ -37,6 +34,10 @@ public class Main {
         String compareNumber = String.valueOf(numberSquare).substring(startIndex, numberSquareDigit);
 
         return String.valueOf(number).equals(compareNumber);
+    }
+
+    private static String getSelfReplicationNumberAnswer(Integer input) {
+        return isSelfReplicationNumber(input) ? "YES" : "NO";
     }
 
 }
