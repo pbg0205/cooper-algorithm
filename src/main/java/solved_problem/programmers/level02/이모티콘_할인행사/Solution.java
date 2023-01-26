@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * 1. 10, 20, 30, 40 이 랜덤이기 때문에 중복 조합을 구하기 위해 BFS 를 선언하고 조합 값을 Stack 에 담아서 연산.
+ * 2. 나머지는 문제 요구사항에 맞춰서 문제 해결
+ */
 class Solution {
 
     private int maxEmoticonPlus =0;
