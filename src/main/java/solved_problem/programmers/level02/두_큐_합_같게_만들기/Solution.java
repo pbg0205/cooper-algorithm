@@ -3,6 +3,12 @@ package solved_problem.programmers.level02.두_큐_합_같게_만들기;
 import java.util.LinkedList;
 import java.util.Queue;
 
+
+/**
+ * 1. 두 값을 비교해서 합이 큰 쪽에서 작은 쪽으로 값을 이동하는 과정
+ * 2. 만약 합이 홀수일 경우에는 합칠 수 없는 조건이다.
+ * 3. 연산이 무한로딩이 돌 수 있기 때문에 연산 수를 큐의 최대 길이로 설정
+ */
 class Solution {
     public int solution(int[] queue1, int[] queue2) {
         int answer = 0;
