@@ -1,37 +1,37 @@
 package solved_problem.leetcode.reorder_data_in_log_files;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
+
     public String[] reorderLogFiles(String[] logs) {
-        Arrays.sort(logs, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                String[] arr1 = o1.split(" ", 2);
-                String[] arr2 = o2.split(" ", 2);
+        List<String> letters = new ArrayList<>();
+        List<String> digits = new ArrayList<>();
 
-                boolean isDigit1 = Character.isDigit(arr1[1].charAt(0));
-                boolean isDigit2 = Character.isDigit(arr2[1].charAt(0));
+        for (String log : logs) {
+            String[] split = log.split(" ");
+            String data = split[1];
+            if (Character.isDigit(data.charAt(0))) {
+                digits.add(log);
+            } else {
+                letters.add(log);
+            }
+        }
 
-                if (!isDigit1 && !isDigit2) {
-                    if (arr1[1].compareTo(arr2[1]) == 0)
-                        return arr1[0].compareTo(arr2[0]);
-                    else
-                        return arr1[1].compareTo(arr2[1]);
-                }
+        letters.sort((a, b) -> {
+            String[] aSplit = a.split(" ",2);
+            String[] bSplit = b.split(" ", 2);
 
-                if (!isDigit1) {
-                    return -1;
-                }
-
-                if (!isDigit2) {
-                    return 1;
-                }
-
-                return 0;
+            if (aSplit[1].compareTo(bSplit[1]) == 0) {
+                return aSplit[0].compareTo(bSplit[0]);
+            } else {
+                return aSplit[1].compareTo(bSplit[1]);
             }
         });
-        return logs;
+
+        letters.addAll(digits);
+        return letters.toArray(new String[0]);
     }
+
 }
