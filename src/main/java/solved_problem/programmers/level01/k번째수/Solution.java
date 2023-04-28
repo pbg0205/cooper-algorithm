@@ -3,7 +3,8 @@ package solved_problem.programmers.level01.k번째수;
 import java.util.ArrayList;
 import java.util.List;
 
-class Solution {
+class Solution implements SolutionInterface {
+
     public int[] solution(int[] arr, int[][] commands) {
         List<Integer> answerList = new ArrayList<>();
 
