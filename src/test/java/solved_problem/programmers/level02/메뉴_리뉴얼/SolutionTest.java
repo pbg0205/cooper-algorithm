@@ -1,4 +1,4 @@
-package solved_problem.programmers.level03.메뉴_리뉴얼;
+package solved_problem.programmers.level02.메뉴_리뉴얼;
 
 import org.junit.jupiter.api.Test;
 
