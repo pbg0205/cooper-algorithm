@@ -6,6 +6,9 @@ class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
         int answer = 0;
 
+        Arrays.sort(lost);
+        Arrays.sort(reserve);
+
         //1. 전체 학생들의 배열 생성(기준 1로 설정)
         int[] student = new int[n+1];
         Arrays.fill(student, 1);
