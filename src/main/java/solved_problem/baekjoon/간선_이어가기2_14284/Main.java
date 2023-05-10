@@ -59,11 +59,11 @@ public class Main {
         while(!queue.isEmpty()){
             Vertex now = queue.poll();
 
-            for(Vertex next : graph.get(now.v)){
-                int nextCostAccumulation = distance[now.v] + next.cost;
-                if(distance[next.v] > nextCostAccumulation){
-                    distance[next.v] = nextCostAccumulation;
-                    queue.add(new Vertex(next.v, distance[next.v]));
+            for(Vertex next : graph.get(now.node)){
+                int nextCostAccumulation = distance[now.node] + next.cost;
+                if(distance[next.node] > nextCostAccumulation){
+                    distance[next.node] = nextCostAccumulation;
+                    queue.add(new Vertex(next.node, distance[next.node]));
                 }
             }
         }
@@ -72,11 +72,11 @@ public class Main {
     }
 
     private static class Vertex{
-        private int v;
+        private int node;
         private int cost;
 
-        public Vertex(int v,int cost){
-            this.v = v;
+        public Vertex(int node, int cost){
+            this.node = node;
             this.cost = cost;
         }
     }
