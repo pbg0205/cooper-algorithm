@@ -1,4 +1,4 @@
-package solved_problem.programmers.level04.징검다리.호텔_방_배정;
+package solved_problem.programmers.level04.호텔_방_배정;
 
 import java.util.ArrayList;
 import java.util.HashMap;
