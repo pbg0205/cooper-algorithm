@@ -20,9 +20,13 @@ class Solution2 {
                 .boxed()
                 .collect(Collectors.toSet());
 
+        System.out.println(owns);
+
         owns.retainAll(Arrays.stream(reserve)
                 .boxed()
                 .collect(Collectors.toSet()));
+
+        System.out.println(owns);
 
         Queue<Integer> queue = new LinkedList<>();
         for (int lostNumber : lost) {
@@ -54,7 +58,7 @@ class Solution2 {
 
 
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Solution2 solution = new Solution2();
         solution.solution(5, new int[]{2, 4}, new int[]{1, 3, 5});
     }
 
