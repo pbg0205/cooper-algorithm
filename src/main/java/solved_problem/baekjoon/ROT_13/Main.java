@@ -27,16 +27,11 @@ class Main {
             return alphabet;
         }
 
-        char a;
-        if (Character.isUpperCase(alphabet)) {
-            a = 'A';
-        } else {
-            a = 'a';
-        }
+        char baseA = Character.isUpperCase(alphabet) ? 'A' : 'a';
 
-        int moveIndex = (alphabet - a + 13) % 26;
+        int moveIndex = (alphabet - baseA + 13) % 26;
         
-        return (char)(moveIndex + a);
+        return (char)(moveIndex + baseA);
     }
 
 }
