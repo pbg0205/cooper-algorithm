@@ -12,14 +12,17 @@ class Solution {
 
         for (int y = 0; y < n; y++) {
             for (int x = 0; x < (n - y); x++) {
+                // 아래로 이동하는 조건
                 if (y % 3 == 0) {
                     yPos++;
                 }
 
+                // 오른쪽 이동하는 조건
                 if (y % 3 == 1) {
                     xPos++;
                 }
 
+                // 대각선으로 이동하는 조건
                 if (y % 3 == 2) {
                     xPos--;
                     yPos--;
