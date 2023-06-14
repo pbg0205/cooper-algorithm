@@ -8,13 +8,13 @@ class Solution {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (char c : s.toCharArray()) {
-            stringBuilder.append(push(c, n));
+            stringBuilder.append(caesarCipher(c, n));
         }
 
         return stringBuilder.toString();
     }
 
-    private char push(char c, int n) {
+    private char caesarCipher(char c, int n) {
         if (!Character.isAlphabetic(c)) {
             return c;
         }
