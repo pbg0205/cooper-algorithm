@@ -14,15 +14,14 @@ class Solution {
         return stringBuilder.toString();
     }
 
-    private char caesarCipher(char c, int n) {
+    private char caesarCipher(char c, int moveCount) {
         if (!Character.isAlphabetic(c)) {
             return c;
         }
 
-        int offset = Character.isUpperCase(c) ? 'A' : 'a';
-        int position = c - offset;
-        position = (position + n) % ALPHABET_SIZE;
-        return (char) (position + offset);
+        int baseA = Character.isUpperCase(c) ? 'A' : 'a';
+        int offset = (c - baseA + moveCount) % ALPHABET_SIZE;
+        return (char) (offset + baseA);
     }
 
 }
