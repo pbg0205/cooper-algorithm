@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 class Main {
 
-    private static final String REGEX = "(http|ftp|gopher)://([\\w.-]+)(?::([0-9]+))?(?:/([\\S]+))?";
+    private static final String REGEX = "(http|ftp|gopher)://([\\w.-]+)(?::([0-9]{0,5}))?(?:/(\\S+))?";
     private static final Pattern PATTERN = Pattern.compile(REGEX);
 
     public static void main(String[] args) throws IOException {
@@ -29,8 +29,8 @@ class Main {
 
             if (matcher.find()) {
                 for (int j = 0; j < outputFormats.size(); j++) {
-                    if (matcher.group(j) != null) {
-                        writer.write(outputFormats.get(j) + matcher.group(j) + "\n");
+                    if (matcher.group(j + 1) != null) {
+                        writer.write(outputFormats.get(j) + matcher.group(j + 1) + "\n");
                     } else {
                         writer.write(outputFormats.get(j) + "<default>" + "\n");
                     }
