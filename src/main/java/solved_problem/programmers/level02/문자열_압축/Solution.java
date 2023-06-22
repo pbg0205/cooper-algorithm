@@ -1,7 +1,18 @@
-package solved_problem.programmers.level02.문자열_압출;
+package solved_problem.programmers.level02.문자열_압축;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * 1. time complexity : O((n / charLen)) : O(n/charLen + m)
+ * <p>
+ * split 함수의 시간 복잡도: O(n/charLen)
+ * <p>
+ * compress 함수의 시간 복잡도: O(m)
+ * <p>
+ * 2.
+ */
+
 
 class Solution {
 
@@ -10,12 +21,8 @@ class Solution {
 
         for (int charLen = 1; charLen <= s.length(); charLen++) {
             List<String> tokens = split(s, charLen);
-            for (String token : tokens) {
-                int compressedLen = compress(tokens);
-                if (compressedLen < min) {
-                    min = compressedLen;
-                }
-            }
+            int compressedLen = compress(tokens);
+            min = Math.min(compressedLen, min);
         }
 
         return min;
@@ -44,7 +51,6 @@ class Solution {
         for (String token : tokens) {
             if (token.equals(previousToken)) {
                 count++;
-                continue;
             } else {
                 if (count > 1) {
                     builder.append(count);
@@ -59,6 +65,7 @@ class Solution {
         if (count > 1) {
             builder.append(count);
         }
+
         builder.append(previousToken);
 
         return builder.length();
