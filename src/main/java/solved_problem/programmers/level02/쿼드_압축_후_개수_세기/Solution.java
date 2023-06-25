@@ -2,23 +2,8 @@ package solved_problem.programmers.level02.쿼드_압축_후_개수_세기;
 
 class Solution {
 
-    private static class Count {
-        private final int zeroCount;
-        private final int oneCount;
-
-        public Count(int zeroCount, int oneCount) {
-            this.zeroCount = zeroCount;
-            this.oneCount = oneCount;
-        }
-
-        public Count add(Count other) {
-            return new Count(this.zeroCount + other.zeroCount, this.oneCount + other.oneCount);
-        }
-    }
-
     public int[] solution(int[][] arr) {
         Count count = count(0, 0, arr.length, arr);
-
         return new int[]{count.zeroCount, count.oneCount};
     }
 
@@ -43,4 +28,17 @@ class Solution {
         return new Count(1, 0);
     }
 
+    private static class Count {
+        private final int zeroCount;
+        private final int oneCount;
+
+        public Count(int zeroCount, int oneCount) {
+            this.zeroCount = zeroCount;
+            this.oneCount = oneCount;
+        }
+
+        public Count add(Count other) {
+            return new Count(this.zeroCount + other.zeroCount, this.oneCount + other.oneCount);
+        }
+    }
 }
