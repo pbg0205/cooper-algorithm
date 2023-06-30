@@ -33,7 +33,7 @@ class Solution {
 	}
 
 	private long calculate(ArrayList<String> tokens, String[] precedence) {
-		for (String operator : precedence) {
+		for (String operator : precedence) { // 우선 순위 연산자부터 먼저 연산하는 방식으로 동작.
 			for (int index = 0; index < tokens.size(); index++) {
 				if (tokens.get(index).equals(operator)) {
 					long left = Long.parseLong(tokens.get(index - 1));
