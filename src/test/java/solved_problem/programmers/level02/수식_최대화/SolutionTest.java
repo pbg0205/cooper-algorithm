@@ -1,14 +1,12 @@
 package solved_problem.programmers.level02.수식_최대화;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class SolutionTest {
 
-	private Solution solution = new Solution();
+	private final Solution solution = new Solution();
 
 	@Test
 	void test() {
