@@ -5,27 +5,34 @@ import java.util.HashSet;
 import java.util.Set;
 
 class Solution {
+
     private static boolean[] isPrime = new boolean[10_000_001];
     private static Set<Integer> set = new HashSet<>();
 
     public int solution(String numbers) {
-        Arrays.fill(isPrime, true);
-        isPrime[0] = isPrime[1] = false;
         char[] charArr = numbers.toCharArray();
-        for (int i = 2; i * i <= 10000000; i++) {
-            for (int j = i * i; j <= 10000000; j += i) {
-                isPrime[j] = false;
-            }
-        }
+
+        initSieveOferatosteness();
 
         int n = numbers.length();
         int[] data = new int[n + 1];
         boolean[] visited = new boolean[n + 1];
+
         for (int r = 1; r <= n; r++) {
             permutation(n, r, 0, charArr, visited, data);
         }
 
         return set.size();
+    }
+
+    private static void initSieveOferatosteness() {
+        Arrays.fill(isPrime, true);
+        isPrime[0] = isPrime[1] = false;
+        for (int num = 2; num * num <= 10000000; num++) {
+            for (int multiplyNum = num * num; multiplyNum <= 10000000; multiplyNum += num) {
+                isPrime[multiplyNum] = false;
+            }
+        }
     }
 
     private void permutation(int n, int r, int depth, char[] charArr, boolean[] visited, int[] data) {
