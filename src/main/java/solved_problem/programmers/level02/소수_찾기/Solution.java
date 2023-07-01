@@ -4,10 +4,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-
 class Solution {
-    static boolean[] isPrime = new boolean[10000001];
-    static Set<Integer> set = new HashSet<>();
+    private static boolean[] isPrime = new boolean[10_000_001];
+    private static Set<Integer> set = new HashSet<>();
 
     public int solution(String numbers) {
         Arrays.fill(isPrime, true);
@@ -28,7 +27,6 @@ class Solution {
 
         return set.size();
     }
-
 
     private void permutation(int n, int r, int depth, char[] charArr, boolean[] visited, int[] data) {
         if (depth == r) {
