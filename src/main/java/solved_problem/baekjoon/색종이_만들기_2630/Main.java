@@ -1,4 +1,4 @@
-package solved_problem.baekjoon.색종이_2630;
+package solved_problem.baekjoon.색종이_만들기_2630;
 
 import java.io.BufferedReader;
 import java.io.IOException;
