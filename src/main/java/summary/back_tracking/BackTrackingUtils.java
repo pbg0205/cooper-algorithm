@@ -48,6 +48,16 @@ public class BackTrackingUtils {
         return answer;
     }
 
+    /**
+     *
+     * @param numbers : inputNumbers
+     * @param r : 조회하고자 하는 데이터 수
+     * @param depth : 현재 재귀 깊이
+     * @param startIdx : combination 을 위한 필드
+     * @param result : 결과 값을 임시 저장
+     * @param visited : 방문 여부 체크
+     * @param answer : 결과를 저장하는 역할
+     */
     private static void combinationByList(List<Integer> numbers,
                                           int r,
                                           int depth,
