@@ -1,25 +1,22 @@
 package solved_problem.programmers.level02.가장_큰_수;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 class Solution {
+
     public String solution(int[] numbers) {
-        String[] temp = new String[numbers.length];
-        for (int i = 0; i < numbers.length; i++) {
-            temp[i] = String.valueOf(numbers[i]);
-        }
+        String[] numberStrArray = Arrays.stream(numbers)
+                .mapToObj(String::valueOf)
+                .toArray(String[]::new);
 
-        Arrays.sort(temp, (a, b) -> (b + a).compareTo(a + b));
+        Arrays.sort(numberStrArray, (a, b) -> (b + a).compareTo(a + b));
 
-        if (temp[0].equals("0")) {
+        if (numberStrArray[0].equals("0")) {
             return "0";
         }
 
-        StringBuilder sb = new StringBuilder();
-        for (String s : temp) {
-            sb.append(s);
-        }
-
-        return sb.toString();
+        return Arrays.stream(numberStrArray).collect(Collectors.joining());
     }
+
 }
