@@ -31,6 +31,45 @@ public class BackTrackingUtils {
     private BackTrackingUtils() {
     }
 
+    public static List<List<Integer>> combination(List<Integer> numbers, int r) {
+        List<Boolean> visited = new ArrayList<>();
+        for (int i = 0; i < numbers.size(); i++) {
+            visited.add(false);
+        }
+
+        List<List<Integer>> answer = new ArrayList<>();
+
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < r; i++) {
+            result.add(-1);
+        }
+
+        combinationByList(numbers, r, 0, 0, result, visited, answer);
+        return answer;
+    }
+
+    private static void combinationByList(List<Integer> numbers,
+                                          int r,
+                                          int depth,
+                                          int startIdx,
+                                          List<Integer> result,
+                                          List<Boolean> visited,
+                                          List<List<Integer>> answer) {
+        if (depth == r) {
+            answer.add(new ArrayList<>(result));
+            return;
+        }
+
+        for (int idx = startIdx; idx < numbers.size(); idx++) {
+            if (!visited.get(idx)) {
+                visited.set(idx, true);
+                result.set(depth, numbers.get(idx));
+                combinationByList(numbers, r, depth + 1, idx + 1, result, visited, answer);
+                visited.set(idx, false);
+            }
+        }
+    }
+
     /**
      * - list 를 통해서 dfs 를 구현하는 방법: array 보다 전처리 작업이 필요해서 번거로운 것이 단점
      */
@@ -46,7 +85,7 @@ public class BackTrackingUtils {
             tempAnswer.add(-1);
         }
 
-        dfsByList(numbers, r, 0, tempAnswer, visited, answer);
+        permutationByList(numbers, r, 0, tempAnswer, visited, answer);
 
         return answer;
     }
@@ -59,12 +98,12 @@ public class BackTrackingUtils {
      * @param visited : 방문 여부 체크
      * @param answers : 결과들을 저장하는 역할
      */
-    private static void dfsByList(List<Integer> numbers,
-                                  int r,
-                                  int depth,
-                                  List<Integer> tempAnswer,
-                                  List<Boolean> visited,
-                                  List<List<Integer>> answers) {
+    private static void permutationByList(List<Integer> numbers,
+                                          int r,
+                                          int depth,
+                                          List<Integer> tempAnswer,
+                                          List<Boolean> visited,
+                                          List<List<Integer>> answers) {
         if (depth == r) {
             answers.add(new ArrayList<>(tempAnswer));
             return;
@@ -74,7 +113,7 @@ public class BackTrackingUtils {
             if (!visited.get(i)) {
                 visited.set(i, true);
                 tempAnswer.set(depth, numbers.get(i));
-                dfsByList(numbers, r, depth + 1, tempAnswer, visited, answers);
+                permutationByList(numbers, r, depth + 1, tempAnswer, visited, answers);
                 visited.set(i, false);
             }
         }
@@ -88,7 +127,7 @@ public class BackTrackingUtils {
         int[] tempAnswer = new int[r];
         List<List<Integer>> answer = new ArrayList<>();
 
-        dfsByArray(numbers, r, 0, tempAnswer, visited, answer);
+        permutationByArray(numbers, r, 0, tempAnswer, visited, answer);
 
         return answer;
     }
@@ -101,12 +140,12 @@ public class BackTrackingUtils {
      * @param visited : 방문 여부 체크
      * @param answers : 결과들을 저장하는 역할
      */
-    private static void dfsByArray(int[] numbers,
-                                   int r,
-                                   int depth,
-                                   int[] tempAnswer,
-                                   boolean[] visited,
-                                   List<List<Integer>> answers) {
+    private static void permutationByArray(int[] numbers,
+                                           int r,
+                                           int depth,
+                                           int[] tempAnswer,
+                                           boolean[] visited,
+                                           List<List<Integer>> answers) {
         if (depth == r) {
             List<Integer> newTempAnswer = Arrays.stream(tempAnswer.clone())
                     .boxed()
@@ -120,7 +159,7 @@ public class BackTrackingUtils {
             if (!visited[i]) {
                 visited[i] = true;
                 tempAnswer[depth] = numbers[i];
-                dfsByArray(numbers, r, depth + 1, tempAnswer, visited, answers);
+                permutationByArray(numbers, r, depth + 1, tempAnswer, visited, answers);
                 visited[i] = false;
             }
         }

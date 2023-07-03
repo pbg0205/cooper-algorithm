@@ -16,6 +16,12 @@ public class Main {
         for (List<Integer> answer2 : answers2) {
             System.out.println(answer2);
         }
+
+        System.out.println("-----------------");
+        List<List<Integer>> answers3 = BackTrackingUtils.combination(List.of(2, 3, 5, 7), 2);
+        for (List<Integer> answer3 : answers3) {
+            System.out.println(answer3);
+        }
     }
 
 
