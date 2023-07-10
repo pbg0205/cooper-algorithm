@@ -1,4 +1,4 @@
-package solved_problem.programmers.level0.다음에_올_숫자;
+package solved_problem.programmers.level00.다음에_올_숫자;
 
 class Solution {
     public int solution(int[] common) {
