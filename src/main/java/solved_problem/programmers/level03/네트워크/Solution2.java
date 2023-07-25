@@ -2,7 +2,7 @@ package solved_problem.programmers.level03.네트워크;
 
 import java.util.Stack;
 
-class Solution {
+class Solution2 {
 
     public int solution(int n, int[][] computers) {
         int answer = 0;
