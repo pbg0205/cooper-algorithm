@@ -1,13 +1,14 @@
 package solved_problem.programmers.level01.키패드_누르기;
 
 class Solution {
+
     private static final String LEFT = "L";
     private static final String RIGHT = "R";
 
     public String solution(int[] numbers, String hand) {
-        StringBuilder sb = new StringBuilder();
-        int[] leftIndex = {3,0};
-        int[] rightIndex = {3,2};
+        StringBuilder answer = new StringBuilder();
+        int[] leftIndex = {3, 0};
+        int[] rightIndex = {3, 2};
 
         //1,4,7 -> 왼손
         //3,6,9 -> 오른손
@@ -15,71 +16,108 @@ class Solution {
         // 길이가 같을 때는 손잡이 기준
 
         for (int number : numbers) {
-            if (number == 1 || number == 4 || number == 7) {
-                addLeftResult(sb, leftIndex, number - 1);
-            }
-
-            if(number == 3 || number == 6 || number == 9) {
-                addRightResult(sb, rightIndex, number - 1);
-            }
-
-            if(number == 2 || number == 5
-                    || number == 8 || number == 0) {
-                int[] nowIndex = new int[2];
-                if(number == 0) {
-                    nowIndex[0] = 3;
-                    nowIndex[1] = 1;
+            // 1. 왼손 위치에 있을 경우
+            if (locateLeft(number)) {
+                answer.append(LEFT);
+                if (number - 1 == -1) {
+                    leftIndex[0] = 3;
+                    leftIndex[1] = 1;
                 } else {
-                    nowIndex[0] = (number - 1) / 3;
-                    nowIndex[1] = (number - 1) % 3;
-
+                    leftIndex[0] = (number - 1) / 3;
+                    leftIndex[1] = (number - 1) % 3;
                 }
 
-                int lengthToLeft =
-                        (int)Math.abs(nowIndex[0] - leftIndex[0])
-                                + (int)Math.abs(nowIndex[1] - leftIndex[1]);
-                int lengthToRight =
-                        (int)Math.abs(nowIndex[0] - rightIndex[0])
-                                + (int)Math.abs(nowIndex[1] - rightIndex[1]);
+            }
 
-                if(lengthToLeft > lengthToRight) {
-                    addRightResult(sb, rightIndex, number - 1);
-                }else if (lengthToLeft < lengthToRight) {
-                    addLeftResult(sb, leftIndex, number - 1);
+            // 2. 오른손 위치에 있을 경우
+            if (locateRight(number)) {
+                answer.append(RIGHT);
+                if (number - 1 == -1) {
+                    rightIndex[0] = 3;
+                    rightIndex[1] = 1;
                 } else {
-                    if(hand.equals("left")) {
-                        addLeftResult(sb, leftIndex, number - 1);
+                    rightIndex[0] = (number - 1) / 3;
+                    rightIndex[1] = (number - 1) % 3;
+                }
+
+            }
+
+            // 3. 가운데 위치에 있을 경우, 거리가 짧은 손으로 클릭
+            if (locateMiddle(number)) {
+                int[] nowIndex = number == 0 ?
+                        new int[]{3, 1} :
+                        new int[]{(number - 1) / 3, (number - 1) % 3};
+
+                int distanceToLeft = Math.abs(nowIndex[0] - leftIndex[0])
+                        + Math.abs(nowIndex[1] - leftIndex[1]);
+                int distanceToRight = Math.abs(nowIndex[0] - rightIndex[0])
+                        + Math.abs(nowIndex[1] - rightIndex[1]);
+
+                if (distanceToLeft > distanceToRight) {
+                    answer.append(RIGHT);
+                    if (number - 1 == -1) {
+                        rightIndex[0] = 3;
+                        rightIndex[1] = 1;
                     } else {
-                        addRightResult(sb, rightIndex, number - 1);
+                        rightIndex[0] = (number - 1) / 3;
+                        rightIndex[1] = (number - 1) % 3;
                     }
+
+                    continue;
+                }
+
+                if (distanceToLeft < distanceToRight) {
+                    answer.append(LEFT);
+                    if (number - 1 == -1) {
+                        leftIndex[0] = 3;
+                        leftIndex[1] = 1;
+                    } else {
+                        leftIndex[0] = (number - 1) / 3;
+                        leftIndex[1] = (number - 1) % 3;
+                    }
+
+                    continue;
+                }
+
+                // 4. 오른쪽, 왼쪽 서로 길이가 같을 경우, 주된 손잡이로 고른다.
+                if (hand.equals("left")) {
+                    answer.append(LEFT);
+                    if (number - 1 == -1) {
+                        leftIndex[0] = 3;
+                        leftIndex[1] = 1;
+                        continue;
+                    }
+
+                    leftIndex[0] = (number - 1) / 3;
+                    leftIndex[1] = (number - 1) % 3;
+                } else {
+                    answer.append(RIGHT);
+                    if (number - 1 == -1) {
+                        rightIndex[0] = 3;
+                        rightIndex[1] = 1;
+                        continue;
+                    }
+
+                    rightIndex[0] = (number - 1) / 3;
+                    rightIndex[1] = (number - 1) % 3;
                 }
             }
         }
 
-        return sb.toString();
+        return answer.toString();
     }
 
-    private void addRightResult(StringBuilder sb, int[] rightIndex, int number) {
-        sb.append(RIGHT);
-        if(number == -1) {
-            rightIndex[0] = 3;
-            rightIndex[1] = 1;
-            return;
-        }
-
-        rightIndex[0] = number / 3;
-        rightIndex[1] = number % 3;
+    private static boolean locateMiddle(int number) {
+        return number == 2 || number == 5
+                || number == 8 || number == 0;
     }
 
-    private void addLeftResult(StringBuilder sb, int[] leftIndex, int number) {
-        sb.append(LEFT);
-        if(number == -1) {
-            leftIndex[0] = 3;
-            leftIndex[1] = 1;
-            return;
-        }
-
-        leftIndex[0] = number / 3;
-        leftIndex[1] = number % 3;
+    private static boolean locateRight(int number) {
+        return number == 3 || number == 6 || number == 9;
     }
+
+    private static boolean locateLeft(int number) {
+        return number == 1 || number == 4 || number == 7;
+    }
+
 }
