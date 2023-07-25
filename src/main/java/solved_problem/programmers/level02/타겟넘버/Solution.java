@@ -2,8 +2,16 @@ package solved_problem.programmers.level02.타겟넘버;
 
 class Solution {
     public int solution(int[] numbers, int target) {
-        int count = CountUtil.count(numbers, target);
-        return count;
+        return dfs(numbers, target, 0, 0);
+    }
+
+    private int dfs(int[] numbers, int target, int nowIndex, int currentSum) {
+        if (nowIndex == numbers.length) {
+            return (currentSum == target) ? 1 : 0;
+        }
+
+        return dfs(numbers, target, nowIndex + 1, currentSum + numbers[nowIndex]) +
+                dfs(numbers, target, nowIndex + 1, currentSum - numbers[nowIndex]);
     }
 
     public static void main(String[] args) {
@@ -12,32 +20,18 @@ class Solution {
 
         Solution solution = new Solution();
         int result = solution.solution(numbers, target);
-        System.out.println(result);
+        System.out.println("result = " + result);
     }
+
 }
 
-class CountUtil {
-
-    public static int count(int[] numbers, int target) {
-        int sum = 0;
-        int index = 0;
-        return calculateCount(numbers, target, sum, index);
-    }
-
-    private static int calculateCount(int[] numbers, int target, int sum, int index) {
-        int numberLength = numbers.length;
-        if (index == numberLength) {
-            return isTarget(target, sum) ? 1 : 0;
-        }
-
-        int nextNumber = numbers[index];
-        int addCount = calculateCount(numbers, target, sum + nextNumber, index + 1);
-        int substractCount = calculateCount(numbers, target, sum - nextNumber, index + 1);
-
-        return addCount + substractCount;
-    }
-
-    private static boolean isTarget(int target, int sum) {
-        return target == sum;
-    }
-}
+/**
+ * 테스트 1 〉	통과 (5.57ms, 79.9MB)
+ * 테스트 2 〉	통과 (9.21ms, 73.3MB)
+ * 테스트 3 〉	통과 (0.20ms, 72MB)
+ * 테스트 4 〉	통과 (0.37ms, 72.4MB)
+ * 테스트 5 〉	통과 (0.89ms, 80.3MB)
+ * 테스트 6 〉	통과 (0.36ms, 81.1MB)
+ * 테스트 7 〉	통과 (0.18ms, 78.2MB)
+ * 테스트 8 〉	통과 (0.38ms, 82.9MB)
+ */
