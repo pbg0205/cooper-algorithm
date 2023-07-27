@@ -16,44 +16,53 @@ class Solution2 {
         Arrays.sort(lost);
         Arrays.sort(reserve);
 
-        Set<Integer> owns = Arrays.stream(lost)
+        Set<Integer> lostSet = Arrays.stream(lost)
                 .boxed()
                 .collect(Collectors.toSet());
 
-        System.out.println(owns);
+        System.out.println(lostSet);
 
-        owns.retainAll(Arrays.stream(reserve)
+        lostSet.retainAll(Arrays.stream(reserve)
                 .boxed()
                 .collect(Collectors.toSet()));
 
-        System.out.println(owns);
+        System.out.println(lostSet);
 
-        Queue<Integer> queue = new LinkedList<>();
+        Queue<Integer> lostNumberQueue = new LinkedList<>();
         for (int lostNumber : lost) {
-            queue.add(lostNumber);
+            lostNumberQueue.add(lostNumber);
         }
 
         int count = 0;
         for (int reserveNumber : reserve) {
-            if (owns.contains(reserveNumber)) {
+            if (lostSet.contains(reserveNumber)) {
                 continue;
             }
 
-            while (!queue.isEmpty() && (queue.peek() < reserveNumber - 1 || owns.contains(queue.peek()))) {
-                queue.poll();
+            Integer lostNumber = lostNumberQueue.peek();
+            while (!lostNumberQueue.isEmpty() && (borrowDisable(reserveNumber, lostNumber) || lostSet.contains(lostNumber))) {
+                lostNumberQueue.poll();
             }
 
-            if (queue.isEmpty()) {
+            if (lostNumberQueue.isEmpty()) {
                 break;
             }
 
-            if (queue.peek() <= reserveNumber + 1) {
-                queue.poll();
+            if (borrowEnabled(reserveNumber, lostNumber)) {
+                lostNumberQueue.poll();
                 count++;
             }
         }
 
-        return n - lost.length + owns.size() + count;
+        return n - lost.length + lostSet.size() + count;
+    }
+
+    private static boolean borrowEnabled(int reserveNumber, Integer lostNumber) {
+        return lostNumber <= reserveNumber + 1;
+    }
+
+    private boolean borrowDisable(int reserveNumber, Integer lostNumber) {
+        return lostNumber < reserveNumber - 1;
     }
 
 
