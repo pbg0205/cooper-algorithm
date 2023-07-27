@@ -1,54 +1,51 @@
 package solved_problem.programmers.level03.단어변환;
 
+import java.util.Objects;
+
 class Solution {
 
-    private static int min = Integer.MAX_VALUE;
+    private int min = Integer.MAX_VALUE;
 
     public int solution(String begin, String target, String[] words) {
-        int beginLength = begin.length();
-        int targetLength = target.length();
-
-        if (beginLength != targetLength) {
+        if (begin.length() != target.length()) {
             return 0;
         }
 
-        dfs(begin, target, words, new boolean[words.length], 0);
+        dfs(new boolean[words.length], begin, target, words, 0);
 
         if (min == Integer.MAX_VALUE) {
-            return 0;
+            min = 0;
         }
 
         return min;
     }
 
-    private void dfs(String begin, String target, String[] words, boolean[] visited, int count) {
-        if (begin.equals(target)) {
-            min = Math.min(min, count);
+    private void dfs(boolean[] visit, String begin, String target, String[] words, int depth) {
+        if (Objects.equals(begin, target)) {
+            min = Math.min(depth, min);
             return;
         }
 
         for (int i = 0; i < words.length; i++) {
-            if (visited[i] || !checkChangeCount(begin, words[i])) {
-                continue;
+            if (!visit[i] && isConvertable(begin, words[i])) {
+                visit[i] = true;
+                dfs(visit, words[i], target, words, depth + 1);
+                visit[i] = false;
             }
-            visited[i] = true;
-            dfs(words[i], target, words, visited, count + 1);
-            visited[i] = false;
         }
     }
 
-    private boolean checkChangeCount(String begin, String target) {
-        int chageCount = 0;
+    private boolean isConvertable(String begin, String word) {
+        char[] beginChars = begin.toCharArray();
+        char[] wordChars = word.toCharArray();
 
-        for (int i = 0; i < begin.length(); i++) {
-            char beginChar = begin.charAt(i);
-            char targetChar = target.charAt(i);
-
-            if (beginChar != targetChar) {
-                chageCount++;
+        int diffCount = 0;
+        for (int i = 0; i < beginChars.length; i++) {
+            if (beginChars[i] != wordChars[i]) {
+                diffCount++;
             }
         }
 
-        return chageCount == 1;
+        return (diffCount == 1);
     }
 }
