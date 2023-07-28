@@ -2,7 +2,6 @@ package solved_problem.programmers.level02.큰_수_만들기;
 
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Stack;
 import java.util.stream.Collectors;
 
 class Solution2 {
