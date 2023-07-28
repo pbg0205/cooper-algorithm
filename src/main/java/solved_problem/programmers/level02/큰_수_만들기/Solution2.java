@@ -1,22 +1,26 @@
 package solved_problem.programmers.level02.큰_수_만들기;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class Solution2 {
+class Solution2 {
 
     public String solution(String number, int k) {
-        Stack<Character> stack = new Stack<>();
-        for (char c : number.toCharArray()) {
-            while (k > 0 && !stack.isEmpty() && c > stack.peek()) {
-                stack.pop();
-                k--;
+        Deque<Character> stack = new LinkedList<>();
+        int removeCount = 0;
+
+        for (char currentNumber : number.toCharArray()) {
+            while (removeCount < k && !stack.isEmpty() && currentNumber > stack.peek()) {
+                stack.pollLast();
+                removeCount++;
             }
-            stack.push(c);
+            stack.addLast(currentNumber);
         }
 
-        // 앞의 숫자가 뒤의 숫자보다 작은 경우가 없는 경우 통과 (testcase 12)
-        while (k-- > 0) {
+
+        while (removeCount++ < k) {
             stack.pop();
         }
 
@@ -25,10 +29,19 @@ public class Solution2 {
                 .collect(Collectors.joining());
     }
 
-    public static void main(String[] args) {
-        Solution2 solution = new Solution2();
-        String actual = solution.solution("4321", 1);
-        System.out.println(actual);
-    }
-
 }
+
+/**
+ *  테스트 1 〉	통과 (2.16ms, 75.4MB)
+ *  테스트 2 〉	통과 (2.48ms, 87.1MB)
+ *  테스트 3 〉	통과 (3.01ms, 76.9MB)
+ *  테스트 4 〉	통과 (7.17ms, 75.1MB)
+ *  테스트 5 〉	통과 (4.91ms, 74.3MB)
+ *  테스트 6 〉	통과 (9.24ms, 77.4MB)
+ *  테스트 7 〉	통과 (17.70ms, 75.4MB)
+ *  테스트 8 〉	통과 (24.53ms, 88.7MB)
+ *  테스트 9 〉	통과 (58.07ms, 101MB)
+ *  테스트 10 〉	통과 (72.45ms, 108MB)
+ *  테스트 11 〉	통과 (1.80ms, 72.3MB)
+ *  테스트 12 〉	통과 (1.84ms, 76.1MB)
+ */
