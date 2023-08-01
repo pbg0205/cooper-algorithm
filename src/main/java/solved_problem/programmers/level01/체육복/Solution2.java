@@ -39,8 +39,7 @@ class Solution2 {
                 continue;
             }
 
-            Integer lostNumber = lostNumberQueue.peek();
-            while (!lostNumberQueue.isEmpty() && (borrowDisable(reserveNumber, lostNumber) || lostSet.contains(lostNumber))) {
+            while (!lostNumberQueue.isEmpty() && (borrowDisable(reserveNumber, lostNumberQueue.peek()) || lostSet.contains(lostNumberQueue.peek()))) {
                 lostNumberQueue.poll();
             }
 
@@ -48,7 +47,7 @@ class Solution2 {
                 break;
             }
 
-            if (borrowEnabled(reserveNumber, lostNumber)) {
+            if (borrowEnabled(reserveNumber, lostNumberQueue.peek())) {
                 lostNumberQueue.poll();
                 count++;
             }
@@ -57,14 +56,13 @@ class Solution2 {
         return n - lost.length + lostSet.size() + count;
     }
 
-    private static boolean borrowEnabled(int reserveNumber, Integer lostNumber) {
+    private boolean borrowEnabled(int reserveNumber, Integer lostNumber) {
         return lostNumber <= reserveNumber + 1;
     }
 
     private boolean borrowDisable(int reserveNumber, Integer lostNumber) {
         return lostNumber < reserveNumber - 1;
     }
-
 
     public static void main(String[] args) {
         Solution2 solution = new Solution2();
