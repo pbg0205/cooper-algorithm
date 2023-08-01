@@ -2,6 +2,7 @@ package solved_problem.programmers.kakao_internship_2021.거리두기_확인하�
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import solved_problem.programmers.kakao.거리두기_확인하기.Solution;
 
 class SolutionTest {
 

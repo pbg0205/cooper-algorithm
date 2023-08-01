@@ -1,4 +1,4 @@
-package solved_problem.programmers.kakao_blind_recuitment_2021;
+package solved_problem.programmers.kakao.blind_recuitment_2021;
 
 class Solution {
 

@@ -1,4 +1,4 @@
-package solved_problem.programmers.kakao_internship_2021.거리두기_확인하기;
+package solved_problem.programmers.kakao.internship_2021.거리두기_확인하기;
 
 class Solution {
 
