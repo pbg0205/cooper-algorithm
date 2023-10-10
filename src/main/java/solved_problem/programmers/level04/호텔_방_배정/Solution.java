@@ -10,6 +10,7 @@ class Solution {
     public long[] solution(long k, long[] room_number) {
         List<Long> assigned = new ArrayList<>();
         Map<Long, Node> nodes = new HashMap<>();
+
         for (long number : room_number) {
             if (nodes.containsKey(number)) {
                 number = nodes.get(number).max() + 1;
@@ -58,7 +59,7 @@ class Solution {
                 return;
             }
 
-            Node thisRoot = root();
+            Node thisRoot = this.root();
             Node otherRoot = other.root();
 
             if (thisRoot.depth > otherRoot.depth) {
@@ -72,13 +73,10 @@ class Solution {
 
             thisRoot.max = Math.max(thisRoot.max, otherRoot.max);
             otherRoot.max = thisRoot.max;
-
         }
 
         public long max() {
             return root().max;
         }
-
     }
-
 }
