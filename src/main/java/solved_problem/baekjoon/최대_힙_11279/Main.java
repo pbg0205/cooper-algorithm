@@ -1,4 +1,4 @@
-package solved_problem.baekjoon.최대_힙;
+package solved_problem.baekjoon.최대_힙_11279;
 
 import java.io.BufferedReader;
 import java.io.IOException;
