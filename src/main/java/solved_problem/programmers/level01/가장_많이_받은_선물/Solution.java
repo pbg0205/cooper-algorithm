@@ -26,8 +26,8 @@ class Solution {
 		int[] result = new int[friends.length];
 		for (int i = 0; i < friends.length; i++) {
 			result[i] += countByGiftSendCount(giftSendCounts, i);
-			List<Integer> giftNothingIndex = getGiftNeededIndex(giftSendCounts, i);
-			result[i] += countByGiftIndex(giftIndexArray, giftNothingIndex, i);
+			List<Integer> giftIndexNeeded = getGiftNeededIndex(giftSendCounts, i);
+			result[i] += countByGiftIndex(giftIndexArray, giftIndexNeeded, i);
 		}
 
 		return Arrays.stream(result).max().getAsInt();
