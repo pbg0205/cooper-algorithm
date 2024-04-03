@@ -8,37 +8,36 @@ import java.util.List;
  * - Memory Usage: 39.3 MB, less than 43.18%
  */
 
-public class Solution {
-    int n;
-    boolean[] visited;
-    List<List<Integer>> result;
+class Solution {
 
-    public List<List<Integer>> permute(int[] nums) {
-        n = nums.length;
-        visited = new boolean[n];
-        result = new ArrayList<>();
+	public List<List<Integer>> permute(int[] nums) {
+		int n = nums.length;
 
-        permute(new ArrayList<>(), nums);
+		boolean[] visited = new boolean[n];
+		List<Integer> list = new ArrayList<>();
+		List<List<Integer>> result = new ArrayList<>();
 
-        return result;
-    }
+		dfs(n, visited, nums, list, result);
 
-    private void permute(ArrayList<Integer> list, int[] nums) {
-        if (list.size() == n) {
-            result.add(new ArrayList<>(list));
-            return;
-        }
+		return result;
+	}
 
-        for (int i = 0; i < n; i++) {
-            if (!visited[i]) {
-                list.add(nums[i]);
-                visited[i] = true;
+	private void dfs(final int n, boolean[] visited, int[] nums, List<Integer> list, final List<List<Integer>> result) {
+		if (list.size() == n) {
+			result.add(new ArrayList<>(list));
+			return;
+		}
 
-                permute(list, nums);
+		for (int i = 0; i < n; i++) {
+			if (!visited[i]) {
+				list.add(nums[i]);
+				visited[i] = true;
 
-                list.remove(list.size() - 1);
-                visited[i] = false;
-            }
-        }
-    }
+				dfs(n, visited, nums, list, result);
+
+				list.remove(list.size() - 1);
+				visited[i] = false;
+			}
+		}
+	}
 }
