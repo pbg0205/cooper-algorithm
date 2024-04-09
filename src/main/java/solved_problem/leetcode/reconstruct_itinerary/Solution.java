@@ -1,38 +1,47 @@
 package solved_problem.leetcode.reconstruct_itinerary;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 class Solution {
     public List<String> findItinerary(List<List<String>> tickets) {
-        LinkedList<String> result = new LinkedList<>();
-        Map<String, PriorityQueue<String>> graph = buildGraph(tickets);
-        dfs(result, graph, "JFK");
+        List<String> result = new ArrayList<>();
+        Map<String, PriorityQueue<String>> fromToMap = buildFromToMap(tickets);
+        dfs(result, fromToMap, "JFK");
         return result;
     }
 
-    void dfs(LinkedList<String> result, Map<String, PriorityQueue<String>> graph, String from) {
-        PriorityQueue<String> destinations = graph.getOrDefault(from, new PriorityQueue<>());
+    private void dfs(final List<String> result, final Map<String, PriorityQueue<String>> fromToMap, final String from) {
+        PriorityQueue<String> priorityQueue = fromToMap.getOrDefault(from, new PriorityQueue<>());
 
-        while (!destinations.isEmpty()) {
-            String to = destinations.poll();
-            dfs(result, graph, to);
+        while (!priorityQueue.isEmpty()) {
+            String next = priorityQueue.poll();
+            dfs(result, fromToMap, next);
         }
-
-        result.addFirst(from);
+        result.add(0, from);
     }
 
-    Map<String, PriorityQueue<String>> buildGraph(List<List<String>> tickets) {
-        Map<String, PriorityQueue<String>> result = new HashMap<>();
+    private Map<String, PriorityQueue<String>> buildFromToMap(final List<List<String>> tickets) {
+        Map<String, PriorityQueue<String>> fromToMap = new HashMap<>();
+        for (List<String> ticket : tickets) {
+            String from = ticket.get(0);
+            String to = ticket.get(1);
 
-        for (List<String> path : tickets) {
-            String from = path.get(0);
-            String to   = path.get(1);
-
-            result.putIfAbsent(from, new PriorityQueue<>());
-
-            result.get(from).offer(to);
+            fromToMap.putIfAbsent(from, new PriorityQueue<>());
+            fromToMap.get(from).add(to);
         }
+        return fromToMap;
+    }
 
-        return result;
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        List<String> result = solution.findItinerary(
+            List.of(List.of("MUC", "LHR"), List.of("JFK", "MUC"), List.of("SFO", "SJC"), List.of("LHR", "SFO"))
+        );
+
+        System.out.println("result = " + result);
     }
 }
