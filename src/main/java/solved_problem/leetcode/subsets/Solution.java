@@ -4,27 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
-    List<List<Integer>> output = new ArrayList();
-    int n, k;
-
     public List<List<Integer>> subsets(int[] nums) {
-        n = nums.length;
-        for (k = 0; k < n + 1; ++k) {
-            backtrack(0, new ArrayList<>(), nums);
+        int size = nums.length;
+
+        List<List<Integer>> results = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+
+        for (int i = 0; i <= size; i++) {
+            dfs(nums, 0, i, list, results);
         }
-        return output;
+
+        return results;
     }
 
-    public void backtrack(int first, ArrayList<Integer> curr, int[] nums) {
-        // if the combination is done
-        if (curr.size() == k) {
-            output.add(new ArrayList<>(curr));
+    private void dfs(int[] nums, int start, int k, List<Integer> list, List<List<Integer>> results) {
+        if (list.size() == k) {
+            results.add(new ArrayList<>(list));
             return;
         }
-        for (int i = first; i < n; ++i) {
-            curr.add(nums[i]);
-            backtrack(i + 1, curr, nums);
-            curr.remove(curr.size() - 1);
+
+        for (int i = start; i < nums.length; i++) {
+            list.add(nums[i]);
+            dfs(nums, i + 1, k, list, results);
+            list.remove(list.size() - 1);
         }
     }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        List<List<Integer>> result = solution.subsets(new int[] {1, 2, 3});
+        System.out.println("result = " + result);
+    }
+
 }
