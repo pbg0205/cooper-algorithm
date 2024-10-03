@@ -49,7 +49,7 @@ class Solution {
 	}
 
 	public int convertSeconds(String time) {
-		final String[] split = time.split(":");
+		final String[] split = time.split(TIME_DELIMITER);
 		final int  hour = Integer.parseInt(split[0]);
 		final int  minutes = Integer.parseInt(split[1]);
 
@@ -57,8 +57,8 @@ class Solution {
 	}
 
 	public String convertTime(int seconds) {
-		String hour = String.valueOf(seconds / 60);
-		String minutes = String.valueOf(seconds % 60);
+		String hour = String.valueOf(seconds / HOUR_DIVIDE_NUMBER);
+		String minutes = String.valueOf(seconds % HOUR_DIVIDE_NUMBER);
 
 		if (hour.length() == 1) {
 			hour = "0" + hour;
